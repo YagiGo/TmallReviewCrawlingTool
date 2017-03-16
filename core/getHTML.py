@@ -17,7 +17,9 @@ def getPageHtml(username,password,keyword,pageNumber):
 #      '\&from=mallfp..pc_1_searchbutton'.format(keyword)
 #url = 'https://list.tmall.com/search_product.htm?q=shouji&type=p&vmarket=&spm=875.7931836%2FB.a2227oh.d100' \
 #      '&from=mallfp..pc_1_searchbutton'
-    url = 'https://login.taobao.com/member/login.jhtml?tpl_redirect_url=%2F%2Fwww.tmall.hk&style=miniall&enup=true&newMini2=true&full_redirect=true&sub=true&from=tmall&allp=assets_css%3D3.0.6%2Fapps%2Fhk%2Flogin_pc.css&pms=1489401306612%22'
+    url = 'https://login.taobao.com/member/login.jhtml?tpl_redirect_url=%2F%2Fwww.tmall.hk&style=miniall&enup=' \
+          'true&newMini2=true&full_redirect=true&sub=true&from=tmall&allp=assets_css%3D3.0.6%2Fapps%2Fhk%2Flogin_pc' \
+          '.css&pms=1489401306612%22'
     browser.get(url) #open the web page
 #login.taobao.com/member/login.jhtml?tpl_redirect_url=%2F%2Fwww.tmall.hk&style=miniall&enup=true&newMini2=true&full_redirect=true&sub=true&from=tmall&allp=assets_css%3D3.0.6%2Fapps%2Fhk%2Flogin_pc.css&pms=1489401306612"
 #登录网址
@@ -59,6 +61,7 @@ def getPageHtml(username,password,keyword,pageNumber):
         file = open('F:\E-Site Web Crawler\HTMLSource\第{}页网页代码.html'.format(i+1), 'wb')
         print('正在获取第{}页的网页html代码，html文件可在htmlSource目录下找到'.format(i + 1))
         file.write(html_source)
+        file.close()
         browser.find_element_by_class_name('ui-page-next').click()
         # 在被要求输入验证码的时候提醒用户手动输入验证码
         '''if (browser.find_elements_by_id('checkcodeInput')):

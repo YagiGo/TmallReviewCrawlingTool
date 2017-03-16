@@ -21,8 +21,9 @@ from bs4 import BeautifulSoup
     print(htmlPage)
 '''
 #从获得的网页源文件中获取商品的名称和ID用于最终爬取商品评论
-def searchProducts(htmlFile,pageNumber):
+def searchProducts(htmlFile,pageNumber, productName):
     file = BeautifulSoup(htmlFile)
+    productAndSeller = []
     productInfo = []
     #print(file.find_all('a', attrs={"target":"_blank","data-p":re.compile(r'^[0-9]*[1-9][0-9]*$-11')}))
     #print(file.find_all('a', attrs={"target": "_blank", "data-p": re.compile(r'-11')}))
@@ -39,10 +40,16 @@ def searchProducts(htmlFile,pageNumber):
     for i in range(len(productInfo)):
 
         if((productInfo[i-1][0][0] != productInfo[i][0][0])):
-            productDatabase.write(','.join((productInfo[i][0][0], productInfo[i][0][1],productInfo[i][0][2])) + '\n')
+            pattern2 = re.compile(r'\d+')
+            productID = pattern2.findall(productInfo[i][0][1])
+            productDatabase.write(','.join((productInfo[i][0][0], productID[0],productID[3],productInfo[i][0][2]))
+                                  + '\n')
+            productAndSeller.append(productID)
+            productName.append(productInfo[i][0][2])
             '''print('production ID is {}'.format(productInfo[i][0][0]) + '\n' +
                   'production url is {}'.format(productInfo[i][0][1]) + '\n' +
                   'production name is {}'.format(productInfo[i][0][2]))'''
+    return productAndSeller
 def createDatabase(pageNumber):
     for i in range(pageNumber):
         file = open('F:\E-Site Web Crawler\HTMLSource\第{}页网页代码.html'.format(i + 1), 'rb')
