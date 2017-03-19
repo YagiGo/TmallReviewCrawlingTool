@@ -19,8 +19,9 @@ if __name__ == '__main__':
     for i in range(pageNumber):
         htmlFile = open('F:\E-Site Web Crawler\HTMLSource\第{}页网页代码.html'.format(i+1), 'rb')
         productAndSellerID = searchProducts(htmlFile, i, productName)
-        print('第{}网页源码爬取已完成，准备进行商品信息分析。。。'.format(i+1))
+        print('第{}页网页源码爬取已完成，准备进行商品信息分析。。。'.format(i+1))
         getReview(productAndSellerID,productName,reviewPageNumber)
+        print('第{}页网页商品评论获取已完成！'.format(i+1))
         htmlFile.close()
         productNumber += len(productName)
         reviewsNumber += len(productName) * reviewPageNumber * 20
